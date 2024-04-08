@@ -31,7 +31,10 @@ export = (app: Probot) => {
     const org = context.payload.organization.login;
 
     // structure of the comment: /create-repo my-new-repo
-    const new_repo = `${context.payload.comment.user.login}-${context.payload.comment.body.split(" ")[1].toLowerCase()}`;
+    // this will create a repo with the name username-my-new-repo-currentyear
+    const new_repo = `${context.payload.comment.user.login}-${
+      context.payload.comment.body.split(" ")[1]
+    }-${new Date().getUTCFullYear()}`.toLowerCase();
 
     const config: ConfigTemplate | null = await context.config(
       "repo-maker.yml"
