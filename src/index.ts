@@ -31,7 +31,7 @@ export = (app: Probot) => {
     const org = context.payload.organization.login;
 
     // structure of the comment: /create-repo my-new-repo
-    const new_repo = context.payload.comment.body.split(" ")[1];
+    const new_repo = `${context.payload.comment.user.login}-${context.payload.comment.body.split(" ")[1].toLowerCase()}`;
 
     const config: ConfigTemplate | null = await context.config(
       "repo-maker.yml"
